@@ -11,7 +11,7 @@
     {% endif %}
 
     <form method="POST">
-        Query: <input type="text" name="query" size=40 /></br>
+        Query: <input type="text" name="query" size=40 value="{{ query | e }}" />
         <input type="submit" value="Search" />
     </form>
     <hr />

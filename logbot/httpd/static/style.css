@@ -9,8 +9,10 @@ body {
     font-size: 0.8em;
 }
 
-div.search {
+div.results {
     list-style-type: none;
+    font-family: Monospace;
+    font-size: 1.2em;
 }
 
 div.search li.even {

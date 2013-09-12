@@ -15,8 +15,6 @@ static_dir = join(dirname(realpath(__file__)), 'static')
 get_template = Environment(loader=FileSystemLoader(static_dir)).get_template
 
 Result = namedtuple('Result', ['log', 'text'])
-
-
 app = Flask(__name__)
 
 
@@ -40,6 +38,7 @@ def log(name):
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     error = None
+    query = ''
 
     if request.method == 'POST':
         try:
@@ -53,7 +52,12 @@ def search():
         results = None
 
     template = get_template('search.html')
-    return template.render(version=__version__, results=results, error=error)
+    return template.render(
+        version=__version__,
+        results=results,
+        error=error,
+        query=query,
+    )
 
 
 def run():
