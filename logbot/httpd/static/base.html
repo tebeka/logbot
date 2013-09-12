@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    {% block head %}
+    <link rel="stylesheet" href="/static/style.css" />
+    <title>logbot - {% block title %}{% endblock %}</title>
+    {% endblock %}
+</head>
+<body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+        <a href="http://bitbucket.org/tebeka/logbot">logbot {{version}}</a>
+    </div>
+</body>

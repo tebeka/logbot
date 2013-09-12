@@ -1,0 +1,23 @@
+body {
+    margin: 2%;
+    border: 1px solid blue;
+    font-family: Georgia, serif;
+}
+
+#footer {
+    border-top: 1px dashed gray;
+    font-size: 0.8em;
+}
+
+div.search {
+    list-style-type: none;
+}
+
+div.search li.even {
+    background: silver;
+}
+
+p.error {
+    font-color: red;
+    font-family: Monospace;
+}

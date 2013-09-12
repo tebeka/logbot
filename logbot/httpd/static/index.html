@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Logs{% endblock %}
+
+{% block content %}
+    <h2>Logs</h2>
+    {% for log in logs %}
+        <a href="/log/{{ log }}">{{ log }}</a> <br />
+    {% endfor %}
+{% endblock %}
+
