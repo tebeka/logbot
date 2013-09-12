@@ -38,7 +38,7 @@ def index(msg):
 
 def search(query):
     ix = open_index(common.idx_dir)
-    qparser = QueryParser('message', ix.schema)
+    qparser = QueryParser('content', ix.schema)
     get_fields = itemgetter(*Message._fields)
 
     with ix.searcher() as searcher:
