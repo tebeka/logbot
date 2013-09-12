@@ -1,5 +1,5 @@
 from .. import __version__
-from .. import search as _search
+from ..search import search as _search
 from ..common import format_message
 from ..log import list_logs, log_path, log_for_time
 
@@ -53,7 +53,6 @@ def search():
         results = None
 
     template = get_template('search.html')
-    print('OK')
     return template.render(version=__version__, results=results, error=error)
 
 
