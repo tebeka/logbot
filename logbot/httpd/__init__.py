@@ -3,7 +3,7 @@ from ..search import search as _search
 from ..common import format_message
 from ..log import list_logs, log_path, log_for_time
 
-from flask import Flask, abort, Response, request
+from flask import Flask, abort, Response, request, url_for
 from jinja2 import Environment, FileSystemLoader
 
 

@@ -22,9 +22,6 @@ def main(argv=None):
 
     create_cfg_dirs()
 
-    httpd.run()
-    raise SystemExit
-
     user = args.user or getuser()
     passwd = args.passwd or getpass()
 
@@ -33,7 +30,7 @@ def main(argv=None):
 
     run_thread(httpd.run)
 
-    bot.run(args.host, args.port, user, passwd, args.rooms)
+    bot.run(args.host, args.port, user, passwd, [args.room])
 
 
 if __name__ == '__main__':

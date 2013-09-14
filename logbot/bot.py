@@ -8,7 +8,7 @@ from signal import signal, SIGINT
 
 class LogBot(ClientXMPP):
     def __init__(self, jid, password, rooms):
-        ClientXMPP.__init__(self, jid, password)
+        super(LogBot, self).__init__(jid, password)
         self.rooms = rooms
 
         self.add_event_handler("session_start", self.session_start)
