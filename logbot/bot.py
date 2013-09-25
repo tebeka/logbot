@@ -28,16 +28,16 @@ class LogBot(ClientXMPP):
     def publish(self, xmpp_msg):
         msg = Message(
             user=self.xmpp_user(xmpp_msg),
-            message=xmpp_msg['body'],
+            content=xmpp_msg['body'],
             time=datetime.now(),
         )
         publish(msg)
 
 
-def run(host, port, user, passwd, rooms):
+def run(host, port, user, passwd, rooms, use_tls=False):
     xmpp = LogBot(user, passwd, rooms)
 
     signal(SIGINT, lambda signum, frame: xmpp.disconnect())
 
-    xmpp.connect((host, port))
+    xmpp.connect((host, port), use_tls=use_tls)
     xmpp.process(block=True)

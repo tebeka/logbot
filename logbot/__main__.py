@@ -15,6 +15,8 @@ def main(argv=None):
     parser.add_argument('--passwd', help='jabber password', default=None)
     parser.add_argument('--host', help='jabber host', default='localhost')
     parser.add_argument('--port', help='jabber port', default=5222, type=int)
+    parser.add_argument('--use-tls', help='use tls',
+                        action='store_true', default=False)
     parser.add_argument('room', help='room to log')  # FIXME: Rooms
     parser.add_argument('--version', action='version',
                         version='logbot {}'.format(__version__))
@@ -30,7 +32,7 @@ def main(argv=None):
 
     run_thread(httpd.run)
 
-    bot.run(args.host, args.port, user, passwd, [args.room])
+    bot.run(args.host, args.port, user, passwd, [args.room], args.use_tls)
 
 
 if __name__ == '__main__':
