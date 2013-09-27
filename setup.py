@@ -19,7 +19,7 @@ def load_requirements(fname):
 setup(
     name='logbot',
     version=logbot.__version__,
-    packages=['logbot'],
+    packages=['logbot', 'logbot.httpd'],
     install_requires=load_requirements('requirements.txt'),
     package_data={
         'logbot': ['httpd/static/*'],

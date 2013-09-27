@@ -1,5 +1,5 @@
-from .common import create_cfg_dirs, run_thread, register_listener
-from . import log, httpd, bot, search, __version__
+from logbot.common import create_cfg_dirs, run_thread, register_listener
+from logbot import log, httpd, bot, search, __version__
 
 from getpass import getuser, getpass
 
