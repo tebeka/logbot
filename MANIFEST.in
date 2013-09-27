@@ -1,2 +1,2 @@
-include README.md requirements.txt test-requirements.txt
+include README.md requirements.txt test-requirements.txt ChangeLog Makefile
 recursive-include logbot/httpd/static *
