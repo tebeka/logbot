@@ -1,2 +1,2 @@
-inlcude README.md requirements.txt test-requirements.txt
-include-recursive logbot/httpd/static/*
+include README.md requirements.txt test-requirements.txt
+recursive-include logbot/httpd/static *
