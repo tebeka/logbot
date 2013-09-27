@@ -38,7 +38,7 @@ def index(msg):
 
 def search(query):
     ix = open_index(common.idx_dir)
-    qparser = QueryParser('content', ix.schema) # FIXME: Search all fields
+    qparser = QueryParser('content', ix.schema)  # FIXME: Search all fields
     get_fields = itemgetter(*Message._fields)
 
     with ix.searcher() as searcher:

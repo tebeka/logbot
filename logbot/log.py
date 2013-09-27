@@ -3,13 +3,15 @@ from .common import format_message, logs_dir
 from glob import glob
 from os.path import join, basename
 
+time_fmt = '%Y%m%d'
+
 
 def log_path(log):
     return join(logs_dir, log)
 
 
 def logfile(time):
-    return log_path('{}.txt'.format(time.strftime('%Y%m%d')))
+    return log_path('{}.txt'.format(time.strftime(time_fmt)))
 
 
 def log(msg):
