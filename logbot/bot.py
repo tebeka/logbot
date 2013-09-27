@@ -7,9 +7,10 @@ from signal import signal, SIGINT
 
 
 class LogBot(ClientXMPP):
-    def __init__(self, jid, password, rooms):
+    def __init__(self, jid, password, room, nick):
         super(LogBot, self).__init__(jid, password)
-        self.rooms = rooms
+        self.room = room
+        self.nick = nick
 
         self.add_event_handler("session_start", self.session_start)
         self.add_event_handler("groupchat_message", self.publish)
@@ -19,8 +20,7 @@ class LogBot(ClientXMPP):
         self.send_presence()
         self.get_roster()
 
-        for room in self.rooms:
-            self.plugin['xep_0045'].joinMUC(room, 'logbot', wait=True)
+        self.plugin['xep_0045'].joinMUC(self.room, self.nick, wait=True)
 
     def xmpp_user(self, xmpp_msg):
         return xmpp_msg['mucnick'] or xmpp_msg['from'].split('@', 1)[0]
@@ -34,8 +34,8 @@ class LogBot(ClientXMPP):
         publish(msg)
 
 
-def run(host, port, user, passwd, rooms, use_tls=False):
-    xmpp = LogBot(user, passwd, rooms)
+def run(host, port, user, passwd, rooms, use_tls=True, nick='logbot'):
+    xmpp = LogBot(user, passwd, rooms, nick)
 
     signal(SIGINT, lambda signum, frame: xmpp.disconnect())
 

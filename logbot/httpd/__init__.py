@@ -1,21 +1,26 @@
 from .. import __version__
 from ..search import search as _search
 from ..common import format_message
-from ..log import list_logs, log_path, log_for_time
+from ..log import list_logs, log_path, logfile
 
-from flask import Flask, abort, Response, request, url_for
+from flask import Flask, abort, Response, request
 from jinja2 import Environment, FileSystemLoader
-
 
 from collections import namedtuple
 from httplib import NOT_FOUND
-from os.path import dirname, realpath, join, isfile
+from os.path import dirname, realpath, join, isfile, basename
+import logging
 
 static_dir = join(dirname(realpath(__file__)), 'static')
 get_template = Environment(loader=FileSystemLoader(static_dir)).get_template
 
 Result = namedtuple('Result', ['log', 'text'])
 app = Flask(__name__)
+
+
+def supress_stdout_logs():
+    log = logging.getLogger('werkzeug')
+    log.setLevel(logging.ERROR)
 
 
 @app.route('/')
@@ -44,7 +49,7 @@ def search():
         try:
             query = request.form['query'].strip()
             messages = _search(query)
-            results = [Result(log_for_time(msg.time), format_message(msg))
+            results = [Result(basename(logfile(msg.time)), format_message(msg))
                        for msg in messages]
         except Exception as err:
             error = str(err)
@@ -61,4 +66,5 @@ def search():
 
 
 def run():
+    supress_stdout_logs()
     app.run()
