@@ -30,4 +30,5 @@ setup(
         ]
     },
     tests_require=load_requirements('test-requirements.txt'),
+    test_suite = 'nose.collector',
 )
