@@ -12,4 +12,8 @@ clean:
 	rm -rf build dist logbot.egg-info/
 	find . -name '*.py[co]' -exec rm -v {} \;
 
+github:
+	hg bookmark -r default master
+	hg push git+ssh://git@github.com/tebeka/logbot.git
+
 .PHONY: all test clean
