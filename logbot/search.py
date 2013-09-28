@@ -9,6 +9,11 @@ from glob import glob
 from operator import itemgetter
 from os import makedirs
 from os.path import join, isdir
+from sys import version_info
+
+if version_info[0] >= 3:
+    unicode = lambda x: x
+
 
 schema = Schema(
     content=TEXT(stored=True),
