@@ -67,4 +67,4 @@ def search():
 
 def run():
     supress_stdout_logs()
-    app.run()
+    app.run(host='0.0.0.0')
