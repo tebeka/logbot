@@ -10,7 +10,8 @@ upload:
 
 clean:
 	rm -rf build dist logbot.egg-info/
-	find . -name '*.py[co]' -exec rm -v {} \;
+	find tests -name '*.py[co]' -exec rm -v {} \;
+	find logbot -name '*.py[co]' -exec rm -v {} \;
 
 github:
 	hg bookmark -r default master

@@ -1,6 +1,8 @@
 from logbot.common import create_cfg_dirs, run_thread, register_listener
 from logbot import log, httpd, bot, search, __version__
 
+from pytz import timezone, UnknownTimeZoneError
+
 from getpass import getuser, getpass
 
 
@@ -20,7 +22,18 @@ def main(argv=None):
     parser.add_argument('room', help='room to log')  # FIXME: Rooms
     parser.add_argument('--version', action='version',
                         version='logbot {}'.format(__version__))
+    parser.add_argument('--timezone', help='time zone', default=None)
+
     args = parser.parse_args(argv[1:])
+
+    if args.timezone:
+        try:
+            tz = timezone(args.timezone)
+        except UnknownTimeZoneError:
+            raise SystemExit(
+                'error: unknown timezone - {}'.format(args.timezone))
+    else:
+        tz = None
 
     create_cfg_dirs()
 
@@ -31,7 +44,7 @@ def main(argv=None):
     register_listener(search.index)
 
     run_thread(httpd.run)
-    bot.run(args.host, args.port, user, passwd, args.room, args.use_tls)
+    bot.run(args.host, args.port, user, passwd, args.room, args.use_tls, tz)
 
 
 if __name__ == '__main__':

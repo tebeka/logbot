@@ -7,10 +7,11 @@ from signal import signal, SIGINT
 
 
 class LogBot(ClientXMPP):
-    def __init__(self, jid, password, room, nick):
+    def __init__(self, jid, password, room, nick, tz=None):
         super(LogBot, self).__init__(jid, password)
         self.room = room
         self.nick = nick
+        self.tz = tz
 
         self.add_event_handler("session_start", self.session_start)
         self.add_event_handler("groupchat_message", self.publish)
@@ -29,13 +30,13 @@ class LogBot(ClientXMPP):
         msg = Message(
             user=self.xmpp_user(xmpp_msg),
             content=xmpp_msg['body'],
-            time=datetime.now(),
+            time=datetime.now(tz=self.tz),
         )
         publish(msg)
 
 
-def run(host, port, user, passwd, rooms, use_tls=True, nick='logbot'):
-    xmpp = LogBot(user, passwd, rooms, nick)
+def run(host, port, user, passwd, rooms, use_tls=True, nick='logbot', tz=None):
+    xmpp = LogBot(user, passwd, rooms, nick, tz)
 
     signal(SIGINT, lambda signum, frame: xmpp.disconnect())
 

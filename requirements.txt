@@ -1,4 +1,5 @@
-whoosh
-sleekxmpp 
 flask
+pytz
+sleekxmpp 
+whoosh
 
