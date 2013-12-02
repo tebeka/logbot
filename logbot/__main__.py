@@ -44,7 +44,7 @@ def main(argv=None):
     register_listener(search.index)
 
     run_thread(httpd.run)
-    bot.run(args.host, args.port, user, passwd, args.room, args.use_tls, tz)
+    bot.run(args.host, args.port, user, passwd, args.room, args.use_tls, tz=tz)
 
 
 if __name__ == '__main__':

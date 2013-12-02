@@ -5,3 +5,7 @@ dist
 build
 logbot.egg-info
 venv
+*.pyc
+*.log
+supervisord.pid
+run-bot.sh

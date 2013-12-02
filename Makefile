@@ -1,3 +1,7 @@
+SHELL := $(shell which bash)
+ACTIVATE_VENV = source venv/bin/activate
+PYTHONPATH = $(shell pwd)
+
 all:
 	$(error Please pick a target)
 
@@ -17,4 +21,11 @@ github:
 	hg bookmark -r default master
 	hg push git+ssh://git@github.com/tebeka/logbot.git
 
-.PHONY: all test clean
+start-supervisor:
+	${ACTIVATE_VENV} && supervisord
+
+start:
+	${ACTIVATE_VENV} && supervisorctl start all
+
+
+.PHONY: all test clean start
