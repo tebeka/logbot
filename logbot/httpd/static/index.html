@@ -4,7 +4,7 @@
 
 {% block content %}
     <h2>Logs</h2>
-    {% for log in logs %}
+    {% for log in logs|sort(reverse=True) %}
         <a href="/log/{{ log }}">{{ log }}</a> <br />
     {% endfor %}
     <hr />

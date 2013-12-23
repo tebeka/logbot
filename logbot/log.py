@@ -21,4 +21,4 @@ def log(msg):
 
 
 def list_logs():
-    return sorted(basename(path) for path in glob(join(logs_dir, '*.txt')))
+    return (basename(path) for path in glob(join(logs_dir, '*.txt')))
