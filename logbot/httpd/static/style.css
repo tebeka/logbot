@@ -1,7 +1,10 @@
 body {
+    font-family: Georgia, serif;
+}
+
+div.content {
     margin: 2%;
     border: 1px solid blue;
-    font-family: Georgia, serif;
 }
 
 #footer {
@@ -22,4 +25,8 @@ div.search li.even {
 p.error {
     font-color: red;
     font-family: Monospace;
+}
+
+#footer img.logo {
+    width: 10px;
 }

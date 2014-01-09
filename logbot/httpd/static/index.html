@@ -3,14 +3,17 @@
 {% block title %}Logs{% endblock %}
 
 {% block content %}
-    <h2>Logs</h2>
-    {% for log in logs|sort(reverse=True) %}
-        <a href="/log/{{ log }}">{{ log }}</a> <br />
-    {% endfor %}
-    <hr />
+
     <form method="POST" action="/search">
         Query: <input type="text" name="query" size=40 />
         <input type="submit" value="Search" />
     </form>
+
+    Logs <br />
+    {% for log in logs|sort(reverse=True) %}
+        <a href="/log/{{ log }}">{{ log }}</a> <br />
+    {% endfor %}
+    <hr />
+
 {% endblock %}
 
