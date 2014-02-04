@@ -4,9 +4,11 @@ export PYTHONPATH=${PWD}
 
 . ./venv/bin/activate
 
-python logbot/__main__.py \
-    --host ##HOST## \
-    --user ##USER## \
-    --passwd ##PASS## \
+python -m logbot \
+    --host HOST \
+    --user USER \
+    --passwd PASSWD \
     --timezone "US/Pacific" \
-    ##ROOM##
+    ROOM
+
+# vim: ft=sh
