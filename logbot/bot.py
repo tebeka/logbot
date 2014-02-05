@@ -13,8 +13,16 @@ class LogBot(ClientXMPP):
         self.nick = nick
         self.tz = tz
 
-        self.add_event_handler("session_start", self.session_start)
-        self.add_event_handler("groupchat_message", self.publish)
+        register = self.add_event_handler
+
+        register("session_start", self.session_start)
+        register("groupchat_message", self.publish)
+
+        def evt(name):
+            return 'muc::{}::got_{}'.format(self.room, name)
+
+        register(evt('online'), lambda evt: self.on_status(evt, 'entered'))
+        register(evt('offline'), lambda evt: self.on_status(evt, 'left'))
 
     def session_start(self, event):
         self.register_plugin('xep_0045')
@@ -23,8 +31,16 @@ class LogBot(ClientXMPP):
 
         self.plugin['xep_0045'].joinMUC(self.room, self.nick, wait=True)
 
+    def on_status(self, event, action):
+        msg = {
+            'mucnick': event['muc']['nick'],
+            'from': event['from'],
+            'body': '{} the room'.format(action),
+        }
+        self.publish(msg)
+
     def xmpp_user(self, xmpp_msg):
-        return xmpp_msg['mucnick'] or xmpp_msg['from'].split('@', 1)[0]
+        return xmpp_msg['mucnick'] or xmpp_msg['from'].bare
 
     def publish(self, xmpp_msg):
         msg = Message(
