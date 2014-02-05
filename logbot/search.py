@@ -2,11 +2,11 @@ from . import common
 from .common import Message
 
 from whoosh.index import create_in, open_dir
-from whoosh.fields import Schema, TEXT, DATETIME, ID
+from whoosh.fields import Schema, TEXT, DATETIME
 from whoosh.qparser import QueryParser
 
 from glob import glob
-from operator import itemgetter
+from itertools import imap
 from os import makedirs
 from os.path import join, isdir
 from sys import version_info
@@ -17,7 +17,8 @@ if version_info[0] >= 3:
 
 schema = Schema(
     content=TEXT(stored=True),
-    user=ID(stored=True),
+    user=TEXT(stored=True),
+    room=TEXT(stored=True),
     time=DATETIME(stored=True),
 )
 
@@ -37,18 +38,23 @@ def index(msg):
     writer.add_document(
         content=unicode(msg.content),
         user=unicode(msg.user),
-        time=msg.time)
+        time=msg.time,
+        room=unicode(msg.room),
+    )
     writer.commit()
+
+
+def msg_fields(hit):
+    return imap(hit.get, Message._fields)
 
 
 def search(query):
     ix = open_index(common.idx_dir)
     qparser = QueryParser('content', ix.schema)  # FIXME: Search all fields
-    get_fields = itemgetter(*Message._fields)
 
     with ix.searcher() as searcher:
         query = qparser.parse(query)
         results = searcher.search(query, limit=100)
         # We need to create a list since searcher closes when we return - no
         # access to results
-        return [Message._make(get_fields(res)) for res in results]
+        return [Message._make(msg_fields(res)) for res in results]

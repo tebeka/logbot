@@ -6,47 +6,58 @@ from datetime import datetime
 from signal import signal, SIGINT
 
 
+def muc_event(room, name):
+    return 'muc::{}::got_{}'.format(room, name)
+
+
+def xmpp_user(msg):
+    return msg['mucnick'] or msg['from'].resource
+
+
 class LogBot(ClientXMPP):
-    def __init__(self, jid, password, room, nick, tz=None):
+    def __init__(self, jid, password, rooms, nick, tz=None):
         super(LogBot, self).__init__(jid, password)
-        self.room = room
+        self.rooms = rooms
         self.nick = nick
         self.tz = tz
 
-        register = self.add_event_handler
+        self.register_handlers(rooms)
 
-        register("session_start", self.session_start)
-        register("groupchat_message", self.publish)
+    def register_handlers(self, rooms):
+        self.add_event_handler("session_start", self.session_start)
+        self.add_event_handler("groupchat_message", self.publish)
 
-        def evt(name):
-            return 'muc::{}::got_{}'.format(self.room, name)
+    def join_room(self, room):
+        self.plugin['xep_0045'].joinMUC(room, self.nick, wait=True)
+        for name, action in [('online', 'entered'), ('offline', 'left')]:
+            event = muc_event(room, name)
+            self.add_event_handler(event, self.muc_handler(room, action))
 
-        register(evt('online'), lambda evt: self.on_status(evt, 'entered'))
-        register(evt('offline'), lambda evt: self.on_status(evt, 'left'))
+    def muc_handler(self, room, action):
+        return lambda evt: self.on_status(evt, room, action)
 
     def session_start(self, event):
         self.register_plugin('xep_0045')
         self.send_presence()
         self.get_roster()
 
-        self.plugin['xep_0045'].joinMUC(self.room, self.nick, wait=True)
+        for room in self.rooms:
+            self.join_room(room)
 
-    def on_status(self, event, action):
+    def on_status(self, event, room, action):
         msg = {
-            'mucnick': event['muc']['nick'],
             'from': event['from'],
             'body': '{} the room'.format(action),
         }
         self.publish(msg)
 
-    def xmpp_user(self, xmpp_msg):
-        return xmpp_msg['mucnick'] or xmpp_msg['from'].bare
 
     def publish(self, xmpp_msg):
         msg = Message(
-            user=self.xmpp_user(xmpp_msg),
+            user=xmpp_user(xmpp_msg),
             content=xmpp_msg['body'],
             time=datetime.now(tz=self.tz),
+            room=xmpp_msg['from'].node,
         )
         publish(msg)
 

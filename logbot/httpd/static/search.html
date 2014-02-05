@@ -1,30 +1,24 @@
 {% extends "base.html" %}
 
-{% block title %}Search{% endblock %}
-
 {% block content %}
-    <h2>Search</h2>
     {% if error %}
-        <p class="error">
-        ERROR: {{ error | e}}
-        </p>
+    <div class="alert alert-danger">
+        <strong>ERROR:</strong> {{ error | e}}
+    </div>
     {% endif %}
 
-    <form method="POST">
-        Query: <input type="text" name="query" size=40 value="{{ query | e }}" />
-        <input type="submit" value="Search" />
-    </form>
-    <hr />
-
-    {% if not results is none %}
-    Total of {{ results | count }} results.
-    <div class="results">
+    {% if results %}
+    <div class="container">
+        <div class="row">
+            Total of {{ results | count }} results.
+        </div>
+        <div class="row">
         {% for result in results %}
             <li class="{{ loop.cycle('odd', 'even') }}">
                 <a href="/log/{{ result.log }}">{{ result.text | e}}</a>
             </li>
         {% endfor %}
-    </div>
+        </div>
     {% endif %}
 
 {% endblock %}
