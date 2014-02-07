@@ -21,7 +21,7 @@ Web interface at [http://localhost:5000](http://localhost:5000)
 
 # Bugs
 
-Version 0.3.0 changed search schema. Please run `utils/add_room.py` to update
+Version 0.3.0 changed search schema. Please run `utils/upgrade_03.py` to update
 the schema.
 
 # Contact
