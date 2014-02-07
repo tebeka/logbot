@@ -11,7 +11,7 @@ def muc_event(room, name):
 
 
 def xmpp_user(msg):
-    return msg['mucnick'] or msg['from'].resource
+    return msg.get('mucnick') or msg['from'].resource
 
 
 class LogBot(ClientXMPP):
