@@ -3,12 +3,11 @@ form.search {
     padding-bottom: 5px;
 }
 
-#footer img.logo {
+#header img.logo {
     width: 10px;
 }
 
-#footer {
-    margin-top: 5px;
+#header {
     background: #F5F5F5;
 }
 

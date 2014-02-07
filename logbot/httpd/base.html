@@ -13,6 +13,16 @@
 <body>
 
     <div class="container">
+    <div id="header">
+        <a class="glyphicon glyphicon-home" href="/"></a>
+        <span class="pull-right">
+            <a href="http://bitbucket.org/tebeka/logbot">logbot {{version}}</a>
+            <img src="/static/favicon.ico" class="logo"/>
+        </span>
+    </div>
+    </div>
+
+    <div class="container">
     <form class="form-inline search" role="form" method="POST" action="/search">
         <div class="input-group">
             <input class="form-control" type="text" name="query"
@@ -24,15 +34,6 @@
 
     <div id="content">{% block content %}{% endblock %}</div>
 
-    <div class="container">
-    <div id="footer">
-        <a class="glyphicon glyphicon-home" href="/"></a>
-        <span class="pull-right">
-            <a href="http://bitbucket.org/tebeka/logbot">logbot {{version}}</a>
-            <img src="/static/favicon.ico" class="logo"/>
-        </span>
-    </div>
-    </div>
 </body>
 <script src="/static/jquery-2.1.0.min.js"></script>
 <script src="/static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
