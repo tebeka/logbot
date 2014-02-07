@@ -11,12 +11,15 @@ def log_path(room, log):
     return join(logs_dir, room, log)
 
 
-def logfile(room, time):
-    return log_path(room, '{}.txt'.format(time.strftime(time_fmt)))
+def logfile(msg, base_only=False):
+    filename = '{}.txt'.format(msg.time.strftime(time_fmt))
+    if base_only:
+        return filename
+    return log_path(msg.room, filename)
 
 
 def log(msg):
-    filename = logfile(msg.room, msg.time)
+    filename = logfile(msg)
     with open(filename, 'at') as out:
         out.write('{}\n'.format(format_message(msg)))
 

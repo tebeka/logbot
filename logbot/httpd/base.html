@@ -16,7 +16,7 @@
     <form class="form-inline search" role="form" method="POST" action="/search">
         <div class="input-group">
             <input class="form-control" type="text" name="query"
-                   placeholder="query" />
+                   placeholder="query" value="{{ query }}" />
             <span class="input-group-addon glyphicon glyphicon-search"></span>
         </div>
     </form>
@@ -26,6 +26,7 @@
 
     <div class="container">
     <div id="footer">
+        <a class="glyphicon glyphicon-home" href="/"></a>
         <span class="pull-right">
             <a href="http://bitbucket.org/tebeka/logbot">logbot {{version}}</a>
             <img src="/static/favicon.ico" class="logo"/>

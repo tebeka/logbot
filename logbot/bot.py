@@ -51,7 +51,6 @@ class LogBot(ClientXMPP):
         }
         self.publish(msg)
 
-
     def publish(self, xmpp_msg):
         msg = Message(
             user=xmpp_user(xmpp_msg),

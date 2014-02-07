@@ -8,11 +8,12 @@ from jinja2 import Environment, FileSystemLoader
 
 from collections import namedtuple
 from httplib import NOT_FOUND
-from os.path import dirname, realpath, join, isfile, basename
+from os.path import dirname, realpath, join, isfile
 import logging
 
-static_dir = join(dirname(realpath(__file__)), 'static')
-get_template = Environment(loader=FileSystemLoader(static_dir)).get_template
+here = dirname(realpath(__file__))
+static_dir = join(here, 'static')
+get_template = Environment(loader=FileSystemLoader(here)).get_template
 
 Result = namedtuple('Result', ['msg', 'text'])
 app = Flask(__name__)
@@ -48,6 +49,11 @@ def log(room, name):
         return Response(fo.read(), mimetype='text/plain')
 
 
+def msg_log_url(msg):
+    name = logfile(msg, base_only=True)
+    return url_for('log', room=msg.room, name=name)
+
+
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     error = None
@@ -68,8 +74,8 @@ def search():
         error=error,
         query=query,
 
-        format_message=format_message,
-        log_path=log_path,
+        fmt=format_message,
+        urlof=msg_log_url,
     )
 
 

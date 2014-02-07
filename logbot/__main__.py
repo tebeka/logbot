@@ -44,9 +44,16 @@ def main(argv=None):
     register_listener(log.log)
     register_listener(search.index)
 
-    httpd.run()
-    #run_thread(httpd.run)
-    #bot.run(args.host, args.port, user, passwd, args.rooms, args.use_tls, tz=tz)
+    run_thread(httpd.run)
+    bot.run(
+        args.host,
+        args.port,
+        user,
+        passwd,
+        args.rooms,
+        args.use_tls,
+        tz=tz,
+    )
 
 
 if __name__ == '__main__':
