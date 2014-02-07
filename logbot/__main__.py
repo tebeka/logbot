@@ -19,7 +19,8 @@ def main(argv=None):
     parser.add_argument('--port', help='jabber port', default=5222, type=int)
     parser.add_argument('--no-tls', help='do not use tls', dest='use_tls',
                         action='store_false', default=True)
-    parser.add_argument('room', help='room to log')  # FIXME: Rooms
+    parser.add_argument('rooms', help='rooms to log', nargs='+',
+                        metavar='room')
     parser.add_argument('--version', action='version',
                         version='logbot {}'.format(__version__))
     parser.add_argument('--timezone', help='time zone', default=None)
@@ -35,7 +36,7 @@ def main(argv=None):
     else:
         tz = None
 
-    create_cfg_dirs()
+    create_cfg_dirs(args.rooms)
 
     user = args.user or getuser()
     passwd = args.passwd or getpass()
@@ -44,7 +45,15 @@ def main(argv=None):
     register_listener(search.index)
 
     run_thread(httpd.run)
-    bot.run(args.host, args.port, user, passwd, args.room, args.use_tls, tz=tz)
+    bot.run(
+        args.host,
+        args.port,
+        user,
+        passwd,
+        args.rooms,
+        args.use_tls,
+        tz=tz,
+    )
 
 
 if __name__ == '__main__':

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Logs{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                {% for room in rooms|sort %}
+                {% set active = "active" if room == current_room else "" %}
+                    <a class="btn btn-lg btn-default {{ active }} room"
+                        href="/room/{{ room }}">
+                        {{ room }}
+                    </a> <br/>
+                {% endfor %}
+            </div>
+            <div class="col-md-10">
+                <ul class="list-group">
+                    {% for log in logs|sort(reverse=True) %}
+                        <li class="list-group-item">
+                        <a class="logfile"
+                            href="/log/{{ current_room }}/{{ log }}">
+                            {{ log }}
+                        </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+

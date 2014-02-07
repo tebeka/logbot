@@ -1,32 +1,24 @@
-body {
-    font-family: Georgia, serif;
-}
-
-div.content {
-    margin: 2%;
-    border: 1px solid blue;
-}
-
-#footer {
-    border-top: 1px dashed gray;
-    font-size: 0.8em;
-}
-
-div.results {
-    list-style-type: none;
-    font-family: Monospace;
-    font-size: 1.2em;
-}
-
-div.search li.even {
-    background: silver;
-}
-
-p.error {
-    font-color: red;
-    font-family: Monospace;
+form.search {
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 #footer img.logo {
     width: 10px;
+}
+
+#footer {
+    margin-top: 5px;
+    background: #F5F5F5;
+}
+
+a.room {
+    font-size: 1.5em;
+    font-family: Monospace;
+    width: 100%;
+}
+
+a.logfile {
+    font-size: 1.5em;
+    font-family: Monospace;
 }

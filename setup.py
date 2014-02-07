@@ -22,7 +22,7 @@ setup(
     packages=['logbot', 'logbot.httpd'],
     install_requires=load_requirements('requirements.txt'),
     package_data={
-        'logbot': ['httpd/static/*'],
+        'logbot': ['httpd/static/*', 'httpd/*.html'],
     },
     entry_points={
         'console_scripts': [

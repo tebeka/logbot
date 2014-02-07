@@ -5,7 +5,7 @@
 
 host=$(hostname)
 
-python -m logbot \
+PYTHONPATH=${PWD} python -m logbot \
     --host ${host} \
     --user logbot \
     --passwd 1234 \

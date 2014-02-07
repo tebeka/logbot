@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if error %}
+    <div class="alert alert-danger">
+        <strong>ERROR:</strong> {{ error | e}}
+    </div>
+    {% endif %}
+
+    <div class="container">
+    {% if results %}
+        <div class="row">
+            <div class="alert alert-success">
+                Total of {{ results | count }} results.
+            </div>
+        </div>
+        <div class="row">
+            <ul class="list-group">
+            {% for msg in results %}
+                <li class="list-group-item">
+                    <a href="{{ urlof(msg) }}">{{ fmt(msg) | e}}</a>
+                </li>
+            {% endfor %}
+        </div>
+    {% else %}
+        {% if query %}
+        <div class="alert alert-warning">
+            No results found.
+        </div>
+        
+        {% endif %}
+    {% endif %}
+    </div>
+
+{% endblock %}
