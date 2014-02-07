@@ -7,9 +7,15 @@ from flask import Flask, abort, Response, request, redirect, url_for
 from jinja2 import Environment, FileSystemLoader
 
 from collections import namedtuple
-from httplib import NOT_FOUND
 from os.path import dirname, realpath, join, isfile
 import logging
+
+from sys import version_info
+
+if version_info[0] >= 3:
+    from http.client import NOT_FOUND
+else:
+    from httplib import NOT_FOUND
 
 here = dirname(realpath(__file__))
 static_dir = join(here, 'static')

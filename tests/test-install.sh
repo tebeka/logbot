@@ -6,7 +6,7 @@ root=/tmp/logbot-install-$(whoami)-$(hostname)
 # Fail on first error
 set -e
 rm -rf ${root}
-virtualenv ${root}
+virtualenv-2.7 ${root}
 . ${root}/bin/activate
 python setup.py install
 ${root}/bin/logbot --help

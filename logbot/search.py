@@ -6,13 +6,15 @@ from whoosh.fields import Schema, TEXT, DATETIME
 from whoosh.qparser import QueryParser
 
 from glob import glob
-from itertools import imap
 from os import makedirs
 from os.path import join, isdir
 from sys import version_info
 
 if version_info[0] >= 3:
     unicode = lambda x: x
+else:
+    from itertools import imap
+    map = imap
 
 
 schema = Schema(
@@ -45,7 +47,7 @@ def index(msg):
 
 
 def msg_fields(hit):
-    return imap(hit.get, Message._fields)
+    return map(hit.get, Message._fields)
 
 
 def search(query):

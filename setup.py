@@ -1,6 +1,7 @@
 import logbot
 
 from setuptools import setup
+from os import walk
 from os.path import dirname, realpath, join
 import re
 
@@ -16,13 +17,18 @@ def load_requirements(fname):
         return [line.strip() for line in fo
                 if not is_comment(line) and line.strip()]
 
+def static_files():
+    for root, _, files in walk('logbot/httpd/static'):
+        for name in files:
+            yield join(root, name)
+
 setup(
     name='logbot',
     version=logbot.__version__,
     packages=['logbot', 'logbot.httpd'],
     install_requires=load_requirements('requirements.txt'),
     package_data={
-        'logbot': ['httpd/static/*', 'httpd/*.html'],
+        'logbot': ['httpd/*.html'] + list(static_files()),
     },
     entry_points={
         'console_scripts': [
