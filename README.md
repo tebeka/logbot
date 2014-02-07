@@ -19,6 +19,11 @@ A logging bot for XMPP chat rooms.
 
 Web interface at [http://localhost:5000](http://localhost:5000)
 
+# Bugs
+
+Version 0.3.0 changed search schema. Please run `utils/add_room.py` to update
+the schema.
+
 # Contact
 Miki Tebeka <miki.tebeka@gmail.com>
 
