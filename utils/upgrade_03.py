@@ -19,11 +19,11 @@ get_values = itemgetter(*common.Message._fields)
 
 def move_logs(room):
     room_dir = join(common.logs_dir, room)
-    if not isdir(room):
-        makedirs(room)
+    if not isdir(room_dir):
+        makedirs(room_dir)
 
     count = 0
-    for logfile in enumerate(glob(join(common.logs_dir, '*.txt')), 1):
+    for count, logfile in enumerate(glob(join(common.logs_dir, '*.txt')), 1):
         new_log = join(room_dir, basename(logfile))
         rename(logfile, new_log)
 
