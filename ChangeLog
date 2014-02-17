@@ -1,4 +1,8 @@
-2014-02-06 version 0.3.2
+2014-02-18 version 0.3.3
+    * supervisor in requirements.txt
+    * make stop
+
+2014-02-18 version 0.3.2
     * Fixed bug in conversion script
 
 2014-02-06 version 0.3.1
