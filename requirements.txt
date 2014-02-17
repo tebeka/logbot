@@ -1,5 +1,5 @@
 flask
 pytz
 sleekxmpp 
+supervisor
 whoosh
-
