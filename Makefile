@@ -14,8 +14,10 @@ upload:
 
 clean:
 	rm -rf build dist logbot.egg-info/
-	find tests -name '*.py[co]' -exec rm -v {} \;
-	find logbot -name '*.py[co]' -exec rm -v {} \;
+	-find logbot -name __pycache__ -exec rm -rfv {} \;
+	-find tests -name __pycache__ -exec rm -rfv {} \;
+	-find tests -name '*.py[co]' -exec rm -v {} \;
+	-find logbot -name '*.py[co]' -exec rm -v {} \;
 
 github:
 	hg bookmark -r default master
