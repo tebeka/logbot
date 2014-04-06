@@ -24,6 +24,7 @@ def static_files():
 
 setup(
     name='logbot',
+    description='A logging bot for XMPP chat rooms',
     version=logbot.__version__,
     packages=['logbot', 'logbot.httpd'],
     install_requires=load_requirements('requirements.txt'),

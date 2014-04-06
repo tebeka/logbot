@@ -1,3 +1,6 @@
+2014-02-18 version 0.3.4
+    * Added description to setup.py
+
 2014-02-18 version 0.3.3
     * supervisor in requirements.txt
     * make stop
